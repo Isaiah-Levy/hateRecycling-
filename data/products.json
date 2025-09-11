@@ -1,0 +1,110 @@
+[
+  {
+    "id": "dora-001",
+    "slug": "bootleg-dora-backpack",
+    "title": "Bootleg Dora Backpack",
+    "price": 3500,
+    "image": "",
+    "description": "Strap barely works, map pocket smells weird.",
+    "paymentUrl": "https://example.com/pay/dora-001"
+  },
+  {
+    "id": "dora-002",
+    "slug": "talking-boots-figurine",
+    "title": "Talking Boots Figurine",
+    "price": 2200,
+    "image": "",
+    "description": "Battery half-dead, voice warped.",
+    "paymentUrl": "https://example.com/pay/dora-002"
+  },
+  {
+    "id": "dora-003",
+    "slug": "swiper-mask",
+    "title": "Swiper Mask",
+    "price": 1800,
+    "image": "",
+    "description": "Plastic mask with cracked paint.",
+    "paymentUrl": "https://example.com/pay/dora-003"
+  },
+  {
+    "id": "dora-004",
+    "slug": "map-poster",
+    "title": "Crumpled Map Poster",
+    "price": 1200,
+    "image": "",
+    "description": "Folded too many times; directions make no sense.",
+    "paymentUrl": "https://example.com/pay/dora-004"
+  },
+  {
+    "id": "dora-005",
+    "slug": "dora-flip-phone",
+    "title": "Dora Flip Phone",
+    "price": 4200,
+    "image": "",
+    "description": "Theme song ringtone loops forever.",
+    "paymentUrl": "https://example.com/pay/dora-005"
+  },
+  {
+    "id": "dora-006",
+    "slug": "explorer-boots",
+    "title": "Explorer Boots (Mud-Caked)",
+    "price": 5600,
+    "image": "",
+    "description": "One size fits none.",
+    "paymentUrl": "https://example.com/pay/dora-006"
+  },
+  {
+    "id": "dora-007",
+    "slug": "backpack-keychain",
+    "title": "Backpack Keychain (Peeling)",
+    "price": 900,
+    "image": "",
+    "description": "Vinyl peeling adds to the charm.",
+    "paymentUrl": "https://example.com/pay/dora-007"
+  },
+  {
+    "id": "dora-008",
+    "slug": "bootleg-sticker-pack",
+    "title": "Bootleg Sticker Pack",
+    "price": 700,
+    "image": "",
+    "description": "Off-register colors; very bootleg.",
+    "paymentUrl": "https://example.com/pay/dora-008"
+  },
+  {
+    "id": "dora-009",
+    "slug": "map-notebook",
+    "title": "Map Notebook (Soggy)",
+    "price": 1100,
+    "image": "",
+    "description": "Pages warp; still usable.",
+    "paymentUrl": "https://example.com/pay/dora-009"
+  },
+  {
+    "id": "dora-010",
+    "slug": "glow-stick-bracelet",
+    "title": "Glow Stick Bracelet (Half-Life)",
+    "price": 600,
+    "image": "",
+    "description": "Dim but persistent glow.",
+    "paymentUrl": "https://example.com/pay/dora-010"
+  },
+  {
+    "id": "dora-011",
+    "slug": "bootleg-patch",
+    "title": "Bootleg Patch (Iron-On?)",
+    "price": 800,
+    "image": "",
+    "description": "Might be adhesive. Might not.",
+    "paymentUrl": "https://example.com/pay/dora-011"
+  },
+  {
+    "id": "dora-012",
+    "slug": "mystery-figurine",
+    "title": "Mystery Figurine (Unlabeled)",
+    "price": 1900,
+    "image": "",
+    "description": "Could be Dora. Could be cousin.",
+    "paymentUrl": "https://example.com/pay/dora-012"
+  }
+]

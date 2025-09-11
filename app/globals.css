@@ -1,26 +1,84 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ===== Old web defaults ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* neon accent like the screenshot */
+  --accent: #39ff14;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  background: #000;
+  color: #fff;
+  /* Classic default stacks (no Google fonts) */
+  font-family: Verdana, Geneva, Tahoma, Arial, sans-serif;
+  line-height: 1.4;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Header banner */
+.site-hero {
+  background: linear-gradient(90deg, #3a0066, #1b0033 60%, #3a0066);
+  border-bottom: 1px solid #222;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.site-hero h1 {
+  color: var(--accent);
+  font-size: clamp(28px, 6vw, 64px);
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px #16ff00, 0 0 18px #16ff00;
+  margin: 0;
+  padding: 22px 0 18px;
+  text-align: center;
+  /* old web vibe */
+  font-family: "Arial Black", Arial, Verdana, sans-serif;
 }
+
+/* Section label */
+.section-label {
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #cfcfcf;
+  margin: 18px 0 18px; /* a bit more breathing room */
+}
+
+/* Grid + cards: white boxes on black */
+
+
+.item {
+  background: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+}
+
+.item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  padding: 10px 12px 12px;
+  border-top: 1px solid #e9e9e9;
+}
+
+.caption .title {
+  font-size: 12px;
+  color: #111;
+}
+
+.caption .price {
+  font-size: 11px;
+  color: #555;
+}
+
+/* simple link look for old web */
+a { color: #9ad1ff; }
+a:hover { color: #c7e6ff; text-decoration: underline; }
+
+/* thin white border for images inside cards */
+.thumb-frame { border: 1px solid rgba(0,0,0,0.06); }
+
+/* subtle photocopy vibe */
+.thumb-grunge { filter: grayscale(20%) contrast(110%); }
