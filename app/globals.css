@@ -84,3 +84,19 @@ a:hover { color: #c7e6ff; text-decoration: underline; }
 
 /* subtle photocopy vibe */
 .thumb-grunge { filter: grayscale(20%) contrast(110%); }
+
+/* form inputs old-web feel */
+input[type="date"],
+input[type="time"],
+textarea {
+  outline: none;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+textarea:focus {
+  box-shadow: 0 0 0 2px rgba(57,255,20,0.35);
+  border-color: rgba(0,0,0,0.9);
+}
+/* Ensure nothing disables clicks on nav links */
+nav a { pointer-events: auto !important; position: relative; z-index: 1; }
