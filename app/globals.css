@@ -73,6 +73,8 @@ html, body {
   color: #555;
 }
 
+.navbar a:hover { color: var(--accent); }
+
 /* simple link look for old web */
 a { color: #9ad1ff; }
 a:hover { color: #c7e6ff; text-decoration: underline; }

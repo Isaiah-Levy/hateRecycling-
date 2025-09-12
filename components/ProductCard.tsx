@@ -1,16 +1,16 @@
-// components/ProductCard.tsx
 import Link from "next/link";
 import { Product, formatPrice } from "@/lib/products";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="bg-white text-black border border-gray-300 rounded-sm overflow-hidden shadow-sm">
+    <div className="min-w-0 bg-white text-black border border-gray-300 rounded-sm overflow-hidden">
       <Link href={`/products/${product.slug}`}>
+        {/* square box; image contained; no stretching */}
         <div className="relative w-full" style={{ aspectRatio: "1 / 1" }}>
           <img
             src={product.image || "/products/placeholder.jpg"}
             alt={product.title}
-            className="absolute inset-0 w-full h-full object-contain p-3 bg-white"
+            className="absolute inset-0 w-full h-full object-contain bg-white p-3"
             draggable={false}
           />
         </div>
