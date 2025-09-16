@@ -16,23 +16,6 @@ html, body {
   line-height: 1.4;
 }
 
-/* Header banner */
-.site-hero {
-  background: linear-gradient(90deg, #3a0066, #1b0033 60%, #3a0066);
-  border-bottom: 1px solid #222;
-}
-
-.site-hero h1 {
-  color: var(--accent);
-  font-size: clamp(28px, 6vw, 64px);
-  letter-spacing: 1px;
-  text-shadow: 0 0 6px #16ff00, 0 0 18px #16ff00;
-  margin: 0;
-  padding: 22px 0 18px;
-  text-align: center;
-  /* old web vibe */
-  font-family: "Arial Black", Arial, Verdana, sans-serif;
-}
 
 /* Section label */
 .section-label {
@@ -72,6 +55,8 @@ html, body {
   font-size: 11px;
   color: #555;
 }
+/* globals.css */
+
 
 .navbar a:hover { color: var(--accent); }
 
@@ -100,3 +85,65 @@ textarea:focus {
 }
 /* Ensure nothing disables clicks on nav links */
 nav a { pointer-events: auto !important; position: relative; z-index: 1; }
+
+.site-hero { 
+  position: relative;
+  z-index: 10;                  /* above wallpaper */
+
+  text-align: center;
+}
+
+.site-hero h1 {
+  color: #bc13fe; /* neon purple */
+  font-size: clamp(14px, 3vw, 32px);
+  font-family: "Arial Black", Arial, Verdana, sans-serif;
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 5px 0;
+  text-transform: lowercase;
+
+  /* add multiple shadows for glow + contrast */
+  text-shadow:
+    0 0 6px #bc13fe,
+    0 0 12px #bc13fe,
+    0 0 22px #bc13fe,
+    0 0 2px black,         /* thin black outline to separate from background */
+    2px 2px 6px black;     /* softer shadow */
+}
+
+
+/* Full-page wallpaper behind everything */
+.page-wallpaper {
+  position: relative;
+  z-index: 0;
+  min-height: 100vh;            /* ensure content has height */
+}
+
+.page-wallpaper::before {
+  content: "";
+  position: fixed;
+  inset: 0;                     /* no offsets! covers the whole viewport */
+  background: url("/background.jpeg") center center / cover no-repeat fixed;
+  z-index: -1;                  /* sit behind ALL content */
+  pointer-events: none;
+}
+
+
+.main-content { position: relative; z-index: 1; }
+/* optional: soft bottom fade */
+.page-wallpaper::after {
+  content: "";
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 22vh;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,.85));
+  z-index: -1;
+}
+
+/* iOS Safari smoother scroll */
+@media (max-width: 640px) {
+  .page-wallpaper::before { background-attachment: scroll; }
+}
+/* Hard override: force it to the top and cancel any bottom/inset */
+

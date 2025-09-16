@@ -1,28 +1,31 @@
+// components/ProductCard.tsx
 import Link from "next/link";
 import { Product, formatPrice } from "@/lib/products";
 
 export default function ProductCard({ product }: { product: Product }) {
+  const href = `/products/${product.handle}`;
+
   return (
-    <div className="min-w-0 bg-white text-black border border-gray-300 rounded-sm overflow-hidden">
-      <Link href={`/products/${product.slug}`}>
-        {/* square box; image contained; no stretching */}
-        <div className="relative w-full" style={{ aspectRatio: "1 / 1" }}>
+    <div className="text-center">
+      {/* bordered image box */}
+      <Link href={href} className="block group">
+        <div className="border border-white/80 bg-black">
+          {/* no padding; image touches the border */}
           <img
             src={product.image || "/products/placeholder.jpg"}
             alt={product.title}
-            className="absolute inset-0 w-full h-full object-contain bg-white p-3"
+            className="block w-full h-auto"
             draggable={false}
           />
         </div>
       </Link>
-      <div className="px-3 pb-3 pt-2 text-center">
-        <Link
-          href={`/products/${product.slug}`}
-          className="block text-[13px] font-medium hover:underline"
-        >
+
+      {/* text BELOW the border */}
+      <div className="mt-2">
+        <Link href={href} className="text-sm underline hover:no-underline">
           {product.title}
         </Link>
-        <div className="text-[12px] text-gray-600">
+        <div className="text-xs text-white/70">
           {formatPrice(product.price)}
         </div>
       </div>

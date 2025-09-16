@@ -6,7 +6,6 @@ export default function ProductGrid({ products }: { products: Product[] }) {
   return (
     <div
       style={{
-        background: "#000",
         display: "grid",
         gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
         gap: "24px",                 // <-- FORCED SPACE
