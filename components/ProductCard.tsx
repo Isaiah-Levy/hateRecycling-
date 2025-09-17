@@ -1,4 +1,3 @@
-// components/ProductCard.tsx
 import Link from "next/link";
 import { Product, formatPrice } from "@/lib/products";
 
@@ -6,11 +5,9 @@ export default function ProductCard({ product }: { product: Product }) {
   const href = `/products/${product.handle}`;
 
   return (
-    <div className="text-center">
-      {/* bordered image box */}
+    <div className="text-center" style={{ maxWidth: "250px", margin: "0 auto" }}>
       <Link href={href} className="block group">
         <div className="border border-white/80 bg-black">
-          {/* no padding; image touches the border */}
           <img
             src={product.image || "/products/placeholder.jpg"}
             alt={product.title}
@@ -20,14 +17,13 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
 
-      {/* text BELOW the border */}
       <div className="mt-2">
-        <Link href={href} className="text-sm underline hover:no-underline">
+        <Link href={href} className="product-title">
           {product.title}
         </Link>
-        <div className="text-xs text-white/70">
-          {formatPrice(product.price)}
-        </div>
+
+        {/* neon price */}
+        <div className="product-price">{formatPrice(product.price)}</div>
       </div>
     </div>
   );

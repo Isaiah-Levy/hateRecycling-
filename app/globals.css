@@ -94,7 +94,7 @@ nav a { pointer-events: auto !important; position: relative; z-index: 1; }
 }
 
 .site-hero h1 {
-  color: #bc13fe; /* neon purple */
+  color: #ffffff; /* white base */
   font-size: clamp(14px, 3vw, 32px);
   font-family: "Arial Black", Arial, Verdana, sans-serif;
   letter-spacing: 1px;
@@ -102,13 +102,17 @@ nav a { pointer-events: auto !important; position: relative; z-index: 1; }
   padding: 5px 0;
   text-transform: lowercase;
 
-  /* add multiple shadows for glow + contrast */
+  /* purple outline + glow */
   text-shadow:
+    /* tight shadows = outline */
+    -1px -1px 0 #bc13fe,
+     1px -1px 0 #bc13fe,
+    -1px  1px 0 #bc13fe,
+     1px  1px 0 #bc13fe,
+    /* glow */
     0 0 6px #bc13fe,
     0 0 12px #bc13fe,
-    0 0 22px #bc13fe,
-    0 0 2px black,         /* thin black outline to separate from background */
-    2px 2px 6px black;     /* softer shadow */
+    0 0 22px #bc13fe;
 }
 
 
@@ -146,4 +150,98 @@ nav a { pointer-events: auto !important; position: relative; z-index: 1; }
   .page-wallpaper::before { background-attachment: scroll; }
 }
 /* Hard override: force it to the top and cancel any bottom/inset */
+.nav-link {
+  display: inline-block;
+  padding: 4px 2px;
+  pointer-events: auto;
 
+  /* toxic green */
+  color: #39ff14; /* neon slime green */
+  text-decoration: none;
+
+  /* loud + chunky */
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-family: "Arial Black", Impact, sans-serif;
+
+  /* glow so it stands out everywhere */
+  text-shadow: 
+    0 0 6px rgba(57,255,20,0.8),
+    0 0 12px rgba(57,255,20,0.6),
+    0 0 18px rgba(0,0,0,1); /* subtle dark halo */
+  
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff; /* flip to white when hovered */
+  text-shadow: 
+    0 0 6px #39ff14,
+    0 0 12px #39ff14,
+    0 0 18px #000;
+}
+
+.product-title {
+  display: inline-block;
+  font-size: 0.9rem; /* tweak if you want larger */
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-decoration: none;
+
+  /* toxic slime green */
+  color: #39ff14;
+  text-shadow: 
+    0 0 6px rgba(57,255,20,0.8),
+    0 0 12px rgba(57,255,20,0.6),
+    0 0 18px rgba(0,0,0,1);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.product-title:hover {
+  color: #ffffff;
+  text-shadow: 
+    0 0 6px #39ff14,
+    0 0 12px #39ff14,
+    0 0 18px #000;
+}
+
+/* stronger selectors so they beat `a` and `a:hover` */
+
+a.product-title {
+  color: #39ff14 !important;            /* toxic green */
+  text-decoration: none !important;     /* kill underline */
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-family: "Arial Black", Impact, sans-serif;
+  text-shadow:
+    0 0 6px rgba(57,255,20,0.8),
+    0 0 12px rgba(57,255,20,0.6),
+    0 0 18px rgba(0,0,0,1);
+  transition: color .2s ease, text-shadow .2s ease;
+}
+
+/* keep hover clean (no underline), optional brighten */
+a.nav-link:hover,
+/* Product title hover stays green glow */
+/* Product title (always neon red) */
+a.product-title, 
+
+a.product-title:hover {
+  color: #ffffff !important; /* brighten to white on hover */
+  text-shadow:
+    0 0 6px #39ff14,
+    0 0 6px #39ff14,
+
+    0 0 18px #000;
+}
+
+/* Product price (always neon red) */
+.product-price, 
+a.nav-link,
+.product-price:hover {
+  color: #ffffff !important; /* brighten to white on hover */
+  text-shadow:
+    0 0 6px #ff003c,
+    0 0 12px #ff003c,
+    0 0 18px #000;
+}
