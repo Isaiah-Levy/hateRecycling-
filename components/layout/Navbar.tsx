@@ -18,8 +18,8 @@ export default function Navbar() {
         >
           {[
             { href: "/book", label: "Book Tattoo" },
-            { href: "/", label: "Merch" },
-            { href: "/art", label: "Art" },
+            { href: "/", label: "Art" },
+            { href: "/merch", label: "Merch" },
             { href: "/contact", label: "Contact" },
           ].map((item) => (
             <li key={item.href}>

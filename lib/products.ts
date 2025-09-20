@@ -12,8 +12,8 @@ export type Product = {
 };
 
 const PRODUCTS_QUERY = /* GraphQL */ `
-  query Products($first: Int = 12) {
-    products(first: $first, sortKey: CREATED_AT, reverse: true) {
+  query Products($first: Int = 12, $query: String) {
+    products(first: $first, sortKey: CREATED_AT, reverse: true, query: $query) {
       edges {
         node {
           id
@@ -43,17 +43,30 @@ const PRODUCT_BY_HANDLE = /* GraphQL */ `
   }
 `;
 
-export async function getAllProducts(limit = 12): Promise<Product[]> {
-  const data = await sf(PRODUCTS_QUERY, { first: limit });
+// generic mapper
+function mapProducts(data: any): Product[] {
   return (data.products.edges as any[]).map(({ node }: any) => ({
     id: node.id,
     handle: node.handle,
     title: node.title,
     image: node.featuredImage?.url || null,
-    price: node.priceRange.minVariantPrice,
+    price: node.priceRange?.minVariantPrice,
     description: node.description || null,
     firstVariantId: node.variants?.edges?.[0]?.node?.id || null
   }));
+}
+
+export async function getAllProducts(limit = 12): Promise<Product[]> {
+  const data = await sf(PRODUCTS_QUERY, { first: limit, query: undefined });
+  return mapProducts(data);
+}
+
+// NEW: fetch by tag (e.g., "Art", "Merch")
+export async function getProductsByTag(tag: string, limit = 12): Promise<Product[]> {
+  // Shopify search string; keep published & active products only
+  const q = `tag:'${tag.replace(/'/g, "\\'")}' AND status:active`;
+  const data = await sf(PRODUCTS_QUERY, { first: limit, query: q });
+  return mapProducts(data);
 }
 
 export async function getProductBySlug(handle: string): Promise<Product | null> {
@@ -65,7 +78,7 @@ export async function getProductBySlug(handle: string): Promise<Product | null> 
     handle: p.handle,
     title: p.title,
     image: p.images?.edges?.[0]?.node?.url || null,
-    price: p.priceRange.minVariantPrice,
+    price: p.priceRange?.minVariantPrice,
     description: p.description || null,
     firstVariantId: p.variants?.edges?.[0]?.node?.id || null
   };
