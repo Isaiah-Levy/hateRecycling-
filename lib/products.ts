@@ -1,5 +1,7 @@
 // lib/products.ts
 import { sf } from "./shopify";
+export type Money = { amount: string; currencyCode: string };
+
 
 export type Product = {
   id: string;
@@ -10,6 +12,86 @@ export type Product = {
   description?: string | null;
   firstVariantId?: string | null;
 };
+
+export type ProductVariant = {
+  id: string;
+  title: string;
+  availableForSale: boolean;
+  price: Money;
+};
+
+export type ProductDetail = {
+  id: string;
+  handle: string;
+  title: string;
+  description: string | null;
+  images: { url: string; altText?: string | null; width?: number; height?: number }[];
+  price: Money;             // min price
+  variants: ProductVariant[];
+  firstVariantId?: string | null;
+};
+
+
+const PRODUCT_DETAIL = /* GraphQL */ `
+  query ProductDetail($handle: String!) {
+    product(handle: $handle) {
+      id
+      handle
+      title
+      description
+      images(first: 12) {
+        edges {
+          node {
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+      priceRange {
+        minVariantPrice { amount currencyCode }
+      }
+      variants(first: 50) {
+        edges {
+          node {
+            id
+            title
+            availableForSale
+            price { amount currencyCode }
+          }
+        }
+      }
+    }
+  }
+`;
+
+
+export async function getProductDetail(handle: string): Promise<ProductDetail | null> {
+  const data = await sf(PRODUCT_DETAIL, { handle });
+  const p = data.product;
+  if (!p) return null;
+
+  const variants = (p.variants?.edges ?? []).map((e: any) => ({
+    id: e.node.id,
+    title: e.node.title,
+    availableForSale: e.node.availableForSale,
+    price: e.node.price,
+  }));
+
+  return {
+    id: p.id,
+    handle: p.handle,
+    title: p.title,
+    description: p.description ?? null,
+    images: (p.images?.edges ?? []).map((e: any) => e.node),
+    price: p.priceRange?.minVariantPrice,
+    variants,
+    firstVariantId: variants[0]?.id ?? null,
+  };
+}
+
+
 
 const PRODUCTS_QUERY = /* GraphQL */ `
   query Products($first: Int = 12, $query: String) {
@@ -84,11 +166,11 @@ export async function getProductBySlug(handle: string): Promise<Product | null> 
   };
 }
 
-export function formatPrice(price: { amount: string; currencyCode: string }) {
-  const n = Number(price.amount);
+
+export function formatPrice(price: Money) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: price.currencyCode || "USD",
-    maximumFractionDigits: 2
-  }).format(n);
+    maximumFractionDigits: 2,
+  }).format(Number(price.amount));
 }

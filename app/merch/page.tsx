@@ -17,7 +17,6 @@ export default async function MerchPage() {
         <div className="h-12" />
 
         <div className="max-w-[1200px] mx-auto px-8 pb-12">
-          <div className="section-label">MERCH</div>
           <ProductGrid products={products} />
         </div>
       </main>

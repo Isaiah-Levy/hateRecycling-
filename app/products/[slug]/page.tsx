@@ -1,17 +1,18 @@
-// app/products/[slug]/page.tsx
 import Navbar from "@/components/layout/Navbar";
-import { getAllProducts, getProductBySlug, formatPrice } from "@/lib/products";
+import { getAllProducts, getProductDetail } from "@/lib/products";
+import BuyBox from "@/components/product/BuyBox";
+import Gallery from "@/components/product/Gallery";
 
 export async function generateStaticParams() {
-  const items = await getAllProducts(24);
-  return items.map(p => ({ slug: p.handle }));
+  const products = await getAllProducts(24);
+  return products.map(p => ({ slug: p.handle }));
 }
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
-  const p = await getProductBySlug(params.slug);
+  const p = await getProductDetail(params.slug);
   if (!p) {
     return (
-      <main className="max-w-[1200px] mx-auto px-8 py-12">
+      <main className="max-w-[1200px] mx-auto px-6 py-16">
         <p>Not found.</p>
       </main>
     );
@@ -22,31 +23,27 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <div className="site-hero"><h1>www.HateRecycling420.com</h1></div>
       <Navbar />
 
-      <div className="max-w-[1000px] mx-auto px-8 py-12">
-        <div className="bg-white text-black border border-gray-300">
-          {/* tight bordered image */}
-          <div className="border-b border-gray-200">
-            <img
-              src={p.image || "/products/placeholder.jpg"}
-              alt={p.title}
-              className="block w-full h-auto"
-              draggable={false}
-            />
-          </div>
+      <div className="page-wallpaper">
+        <div className="mx-auto max-w-[1200px] px-4 md:px-6 py-10 md:py-12">
+          {/* HARD two-column layout */}
+          <div className="product-layout">
+            {/* LEFT: Gallery */}
+            <section>
+              <Gallery images={p.images} />
+            </section>
 
-          <div className="p-4 sm:p-6">
-            <h1 className="text-lg font-bold mb-1">{p.title}</h1>
-            <div className="text-sm text-gray-700 mb-4">{formatPrice(p.price)}</div>
-
-            <p className="text-sm text-gray-800 leading-relaxed mb-6">{p.description}</p>
-
-            {/* Simple buy -> Shopify checkout (via /api/checkout) */}
-            <form action="/api/checkout" method="post">
-              <input type="hidden" name="variantId" value={p.firstVariantId ?? ""} />
-              <button className="uppercase text-sm px-4 py-2 border border-black hover:bg-black hover:text-white transition">
-                Buy
-              </button>
-            </form>
+            {/* RIGHT: Buy box + description */}
+            <aside className="product-buybox">
+              <div className="space-y-6">
+                <BuyBox title={p.title} basePrice={p.price} variants={p.variants} />
+                {p.description ? (
+                  <div className="bg-white text-black p-4 sm:p-6 leading-relaxed text-sm">
+                    <div className="font-semibold mb-2">Details</div>
+                    <div dangerouslySetInnerHTML={{ __html: p.description }} />
+                  </div>
+                ) : null}
+              </div>
+            </aside>
           </div>
         </div>
       </div>

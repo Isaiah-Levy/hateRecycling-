@@ -7,7 +7,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <div className="text-center" style={{ maxWidth: "250px", margin: "0 auto" }}>
       <Link href={href} className="block group">
-        <div className="border border-white/80 bg-black">
+        <div>
           <img
             src={product.image || "/products/placeholder.jpg"}
             alt={product.title}
