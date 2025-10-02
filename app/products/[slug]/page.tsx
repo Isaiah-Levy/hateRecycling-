@@ -1,7 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
-import { getAllProducts, getProductDetail } from "@/lib/products";
-import BuyBox from "@/components/product/BuyBox";
 import Gallery from "@/components/product/Gallery";
+import BuyBox from "@/components/product/BuyBox";
+import { getAllProducts, getProductDetail } from "@/lib/products";
 
 export async function generateStaticParams() {
   const products = await getAllProducts(24);
@@ -23,16 +23,15 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <div className="site-hero"><h1>www.HateRecycling420.com</h1></div>
       <Navbar />
 
-      <div className="page-wallpaper">
+
         <div className="mx-auto max-w-[1200px] px-4 md:px-6 py-10 md:py-12">
-          {/* HARD two-column layout */}
           <div className="product-layout">
-            {/* LEFT: Gallery */}
+       
             <section>
               <Gallery images={p.images} />
             </section>
 
-            {/* RIGHT: Buy box + description */}
+            {/* RIGHT */}
             <aside className="product-buybox">
               <div className="space-y-6">
                 <BuyBox title={p.title} basePrice={p.price} variants={p.variants} />
@@ -46,7 +45,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             </aside>
           </div>
         </div>
-      </div>
+
     </main>
   );
 }

@@ -1,4 +1,3 @@
-// components/product/BuyBox.tsx
 "use client";
 
 import { useMemo, useState } from "react";
@@ -21,7 +20,7 @@ export default function BuyBox({
   const [qty, setQty] = useState(1);
 
   const activeVariant = useMemo(
-    () => variants.find(v => v.id === variantId) ?? variants[0],
+    () => variants.find((v) => v.id === variantId) ?? variants[0],
     [variants, variantId]
   );
   const priceToShow = activeVariant?.price ?? basePrice;
@@ -33,21 +32,20 @@ export default function BuyBox({
   };
 
   return (
-    <div className="bg-white text-black p-4 sm:p-6 shadow-sm">
-      <h1 className="text-2xl font-bold mb-2">{title}</h1>
-      <div className="text-sm text-gray-700 mb-4">{formatPrice(priceToShow)}</div>
+    <div className="buy-card">
+      <h1 className="buy-title">{title}</h1>
+      <div className="buy-price">{formatPrice(priceToShow)}</div>
 
+      {/* VARIANT */}
       {variants.length > 0 && (
-        <div className="mb-4">
-          <label className="block text-[12px] font-semibold mb-1 uppercase tracking-wide">
-            Size / Variant
-          </label>
+        <div className="buy-field">
+          <label className="buy-label">Size / Variant</label>
           <select
-            className="w-full border border-gray-300 px-3 py-2 text-sm bg-white"
+            className="buy-input"
             value={variantId}
             onChange={(e) => setVariantId(e.target.value)}
           >
-            {variants.map(v => (
+            {variants.map((v) => (
               <option key={v.id} value={v.id} disabled={!v.availableForSale}>
                 {v.title} {v.availableForSale ? "" : "(Sold out)"}
               </option>
@@ -56,35 +54,44 @@ export default function BuyBox({
         </div>
       )}
 
-      <div className="mb-4">
-        <label className="block text-[12px] font-semibold mb-1 uppercase tracking-wide">
-          Quantity
-        </label>
-        <div className="flex items-center gap-2">
-          <button type="button" className="border px-3 py-1" onClick={() => setQty(q => Math.max(1, q - 1))}>–</button>
+      {/* QTY */}
+      <div className="buy-field">
+        <label className="buy-label">Quantity</label>
+        <div className="buy-qty">
+          <button
+            type="button"
+            className="buy-qtyBtn"
+            onClick={() => setQty((q) => Math.max(1, q - 1))}
+          >
+            –
+          </button>
           <input
             type="number"
             min={1}
-            className="w-16 border text-center py-1"
+            className="buy-qtyInput"
             value={qty}
             onChange={(e) => setQty(Math.max(1, Number(e.target.value || 1)))}
           />
-          <button type="button" className="border px-3 py-1" onClick={() => setQty(q => q + 1)}>+</button>
+          <button
+            type="button"
+            className="buy-qtyBtn"
+            onClick={() => setQty((q) => q + 1)}
+          >
+            +
+          </button>
         </div>
       </div>
 
+      {/* BUTTONS */}
       <button
         onClick={goToShopify}
-        className="w-full uppercase text-sm py-3 border border-black hover:bg-black hover:text-white transition"
+        className="btn-primary w-full"
         disabled={!activeVariant?.availableForSale}
       >
         {activeVariant?.availableForSale ? "Add to cart" : "Sold out"}
       </button>
 
-      <button
-        onClick={goToShopify}
-        className="w-full mt-3 py-3 border border-yellow-500 text-yellow-700 hover:bg-yellow-50 transition text-sm"
-      >
+      <button onClick={goToShopify} className="btn-ghost w-full mt-3">
         Pay with PayPal
       </button>
     </div>
